@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.31314224, g: 0.29382282, b: 0.51416165, a: 1}
+  m_IndirectSpecularColor: {r: 0.3131415, g: 0.29382116, b: 0.5141607, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9693,9 +9693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d256bd0f795e4478d6e993951c4b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllCommands:
-  - jump
-  - hug
+  AllCommands: []
 --- !u!114 &1144341864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9735,8 +9733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnedChars: []
-  PlayerPrefabs:
-  - {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+  PlayerPrefabs: []
 --- !u!4 &1146294905 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7116149066112638295, guid: aca4c69ba2792044da19860502518138, type: 3}
@@ -14796,13 +14793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcefeec49102a643b06578c39ffd0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Walls:
-  - {fileID: 1283437824}
-  - {fileID: 1091494772}
-  - {fileID: 770251506}
-  - {fileID: 2036801932}
-  - {fileID: 1699709577}
-  - {fileID: 1892351851}
+  Walls: []
 --- !u!4 &1771331045
 Transform:
   m_ObjectHideFlags: 0
