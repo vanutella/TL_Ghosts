@@ -17565,10 +17565,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1953086177, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953086177, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953086177, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953086177, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953086177, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 4459024898375795338, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: cameraToLookAt
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 4459024898375795338, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: screenOrientation
+      value: 
+      objectReference: {fileID: 581493519}
     - target: {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: m_Name
       value: Ghost
