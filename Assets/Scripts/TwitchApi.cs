@@ -29,7 +29,7 @@ public class TwitchApi : MonoBehaviour
         api.Settings.AccessToken = Secrets.bot_access_token;
         api.Settings.ClientId = Secrets.client_id;
 
-        // Zuweisen des Scripts um auch die richtigen Variablen Werte nutzen zu können
+        // Zuweisen des Scripts um auch die richtigen Variablen Werte nutzen zu k?nnen
         _client = GetComponent<TwitchClient>();
 
         // Do RewardStuff
@@ -38,7 +38,7 @@ public class TwitchApi : MonoBehaviour
         //channels_to_manage.Add(Secrets.channel_id); // Add channel_id to a list bc it requires a list
         //followerService = new UnityFollowerService(api, 30,25); // Inverval & ? QueryCount?? idk
         //followerService.SetChannelsById(channels_to_manage);
-
+        
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class TwitchApi : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-
+            
         }
     }
 

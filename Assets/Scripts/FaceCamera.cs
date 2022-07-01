@@ -10,16 +10,15 @@ public class FaceCamera : MonoBehaviour
     void Start()
     {
         cameraToLookAt = Camera.main.transform;
+        screenOrientation = GameObject.Find("SCREEN").transform ;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(screenOrientation.rotation);
         Vector3 v = screenOrientation.position;
         Vector3 r = screenOrientation.localRotation.eulerAngles;
-        Debug.Log(r + "  ,  " + v);
-
+      
         Vector3 newRotation = new Vector3(7.98f, 180, 0);
         transform.eulerAngles = r;
     }

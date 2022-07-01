@@ -9693,7 +9693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d256bd0f795e4478d6e993951c4b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllCommands: []
+  AllCommands:
+  - hug
 --- !u!114 &1144341864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9733,7 +9734,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnedChars: []
-  PlayerPrefabs: []
+  PlayerPrefabs:
+  - {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
 --- !u!4 &1146294905 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7116149066112638295, guid: aca4c69ba2792044da19860502518138, type: 3}

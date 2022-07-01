@@ -62,7 +62,7 @@ public class TwitchClient : MonoBehaviour
         }
         else
         {
-            Debug.Log("Should Display Message");
+        //    Debug.Log("Should Display Message");
             listHandler.ShowMessage(e.ChatMessage);
         }
     }
@@ -120,7 +120,7 @@ public class TwitchClient : MonoBehaviour
                 
                 if (message.Length > CommandName.Length + 1)
                 {
-                    Debug.Log(e.ChatMessage.Message.Length);
+                    
                     // Extract name behind command
                     CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
                     if(CommandName == "hug")
@@ -128,8 +128,8 @@ public class TwitchClient : MonoBehaviour
                         
                         if(CommandAddOn != null)
                         {
-                            Debug.Log("Found Add On " + CommandAddOn);
-                            listHandler.LookingForTarget(e.ChatMessage.Username, CommandAddOn);
+                          //  Debug.Log("Found Add On " + CommandAddOn);
+                            listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
                         }
                     }
                 }

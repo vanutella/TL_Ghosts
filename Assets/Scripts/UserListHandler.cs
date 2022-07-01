@@ -111,7 +111,7 @@ public class UserListHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Already got a User with this name in the scene");
+         //   Debug.Log("Already got a User with this name in the scene");
             // Set time for last message of playerItem
 
         }
@@ -123,26 +123,28 @@ public class UserListHandler : MonoBehaviour
         return tempRandom;
     }
 
-    public void LookingForTarget(string senderName, string targetName)
+
+    // is there even a target available? Or is the name invalid?
+    // return a sender AND target object and Enqueue Hug Action 
+    public void LookingForHugTarget(string senderName, string targetName)
     {
-        
-        GameObject targetItem = SpawnedChars.Find(x => x.name == targetName);
-        GameObject senderItem = SpawnedChars.Find(x => x.name == senderName);
-        Debug.Log(senderName + " " + targetName + " Found: " + senderItem + " " + targetItem);
+        string tempTargetName = targetName.ToLower();
+        string tempSenderName = senderName.ToLower();
+        GameObject targetItem = SpawnedChars.Find(x => x.name == tempTargetName);
+        GameObject senderItem = SpawnedChars.Find(x => x.name == tempSenderName);
+        Debug.Log(" Found objects: Sender: " + senderItem.name + " Target: " + targetItem.name);
+        // Error Message if no taarget found
         if (targetItem == null)
         {
             _client.client.SendMessage(_client.client.JoinedChannels[0], "No Player found. Use '!hug username'");
         }
-       else if(targetItem != null)
+
+        // Found Target -> Stop Target, Set Target, (Start Coroutine?)
+        else if (targetItem != null)
         {
-            Debug.Log("Found Player " + targetItem.name);
-            // Stop Target, Set Target, (Start Coroutine?)
-            senderItem.gameObject.GetComponent<GhostMovement>().target = targetItem.transform;
-            senderItem.gameObject.GetComponent<GhostMovement>().isWandering = false;
            
-            targetItem.gameObject.GetComponent<GhostMovement>().isWandering = false;
-            targetItem.gameObject.GetComponent<GhostMovement>().isHugging = true;
-            
+            senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
+           // senderItem.gameObject.GetComponent<GhostMovement>().SetStartVariables(targetItem);
         }
         
     }
@@ -152,7 +154,7 @@ public class UserListHandler : MonoBehaviour
         GameObject senderItem = SpawnedChars.Find(x => x.name == message.Username);
         if (senderItem)
         {
-            Debug.Log("Found User");
+          //  Debug.Log("Found User");
             senderItem.gameObject.GetComponent<PlayerInfos>().message = message.Message;
         }
     }

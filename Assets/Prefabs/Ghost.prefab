@@ -535,6 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraToLookAt: {fileID: 0}
+  screenOrientation: {fileID: 0}
 --- !u!1 &2029013814
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +709,7 @@ GameObject:
   - component: {fileID: 5129597859739010253}
   - component: {fileID: 5129597859739010252}
   - component: {fileID: 1900427538}
+  - component: {fileID: 6517916057854215072}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -805,3 +807,15 @@ MonoBehaviour:
   heart: {fileID: 96469895}
   messageTimer: 0
   showTime: 0
+--- !u!114 &6517916057854215072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129597859739010255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0b378156a8b4e3589f86558e24c4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

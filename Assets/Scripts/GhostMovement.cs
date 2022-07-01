@@ -4,166 +4,217 @@ using UnityEngine;
 
 public class GhostMovement : MonoBehaviour
 {
-	private PlayerInfos playerInfos;
+    private PlayerInfos playerInfos;
 
-	public Transform target;
-	public float playerRadius;
-	private float dist;
+    public Transform target;
+    public float playerRadius;
+    private float dist;
 
     private Rigidbody rb;
-	public float speed;
-	
-	private Vector3 eulerAngleVelocity;
-	private Quaternion startingDir;
+    public float speed;
 
-	public bool isWandering, isHugging, isWaiting;
+    private Vector3 eulerAngleVelocity;
+    private Quaternion startingDir;
 
-	void Awake()
-	{
-		playerInfos = GetComponent<PlayerInfos>();
-
-		rb = GetComponent<Rigidbody>();
-		rb.useGravity = false;
-		rb.maxAngularVelocity = 60f; //set it to something pretty high so it can actually follow properly!
-
-		eulerAngleVelocity = new Vector3(0, 100, 0);
-
-		startingDir = transform.rotation;
-		Debug.Log(startingDir);
-		isWandering = true;
-	}
-
-    private void Update()
+    public bool isWandering, isHugging = false, isWaiting;
+    public bool isDone = false, startedHugging = false;
+    void Awake()
     {
-		if(target != null) // placeholder if statement, replace with boolean for state machines
+        playerInfos = GetComponent<PlayerInfos>();
+
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.maxAngularVelocity = 60f; //set it to something pretty high so it can actually follow properly!
+
+        eulerAngleVelocity = new Vector3(0, 100, 0);
+
+        startingDir = transform.rotation;
+
+        isWandering = true;
+    }
+
+    private void Update() // Habe ich ein Target, bewege User dorthin und starte hugging (hug bool set in fixedUpdate)
+    {
+        if (target != null) // placeholder if statement, replace with boolean for state machines
         {
-			// IF in Follow-Mode, find Target, calculate dist, do  more logic stuff 
-			dist = Vector3.Distance(rb.transform.position, target.position);
+            // IF in Follow-Mode, find Target, calculate dist, do  more logic stuff 
+            dist = Vector3.Distance(rb.transform.position, target.position);
+            target.GetComponent<GhostMovement>().isWandering = false;
         }
 
         if (target != null && isHugging)
         {
-			Debug.Log("Started Coroutine " + this.name);
-			StartCoroutine(hugging());
-		}
+            if (startedHugging == false) // only call once
+            {
+                Debug.Log("Started Hug Coroutine with " + this.name + " and " + target.name);
+                StartCoroutine(hugging()); // start hugging coroutine
+                startedHugging = true;
+            }
+        }
 
-	}
-    void FixedUpdate()
-	{
+    }
+
+    void FixedUpdate() // Habe is KEIN Target, wandere umher. 
+                       // Habe ich ein target, dann Stoppe es und bewege darauf zu.
+                       // Starte dann Hugging Process
+    {
+        // Hovering while no target 
         if (target == null && isWandering)
         {
-			if (!startedCoroutine)
-			{
-				GetNewHoverForce();
-				StartCoroutine(hovering(4f));
-				startedCoroutine = true;
-			}
-			return;
+            if (!startedCoroutine)
+            {
+                GetNewHoverForce();
+                StartCoroutine(hovering(4f));
+                startedCoroutine = true;
+            }
+            return;
         }
 
-		// is a target from someone else 
-		else if(target == null && isHugging)
+        // is a target from someone else 
+        else if (target == null && isHugging)
         {
-			Reset();
+            Reset();
         }
 
-		// has a target that it is moving to
-		else if (target != null)
+        // has a target that it is moving towards
+        // Rotate towards while moving too
+        else if (target != null)
         {
-			if (dist > playerRadius)
-			{
-				Move();
+            isDone = false;
+            if (dist > playerRadius)
+            {
+                Move();
 
-				Rotate();
-			}
-			else if(dist <= playerRadius)
-			{
-				Reset();
-				isHugging = true;
-			}
-			
-		}
-				
+                Rotate();
+            }
+            else if (dist <= playerRadius)
+            {
+                Reset();
+                isHugging = true; // start hugging in update
+            }
 
-		
-	}
+        }
 
-	public bool startedCoroutine = false;
-	private IEnumerator hovering(float hoverTime)
-    {
-		yield return new WaitForSeconds(hoverTime);
-		startedCoroutine = false;
-    }
-	void GetNewHoverForce()
-    {
-		rb.AddRelativeForce(Random.onUnitSphere * (10));
-	}
 
-	public float standingTime()
-    {
-		return Random.Range(1, 5);
     }
 
-	IEnumerator hugging()
+    public bool startedCoroutine = false;
+    private IEnumerator hovering(float hoverTime)
     {
-		// set hugging images and wait...
-		playerInfos.userNameLabel.gameObject.SetActive(false);
-		playerInfos.messageBubble.SetActive(false);
-		playerInfos.heart.gameObject.SetActive(true);
-		target.GetComponent<PlayerInfos>().userNameLabel.gameObject.SetActive(false);
-		target.GetComponent<PlayerInfos>().messageBubble.SetActive(false);
-		target.GetComponent<PlayerInfos>().heart.gameObject.SetActive(true);
-		yield return new WaitForSeconds(3f);
-		//then do this
-		if (target != null)
-		{	playerInfos.userNameLabel.gameObject.SetActive(true);
-			playerInfos.messageBubble.SetActive(true);
-			playerInfos.heart.gameObject.SetActive(false);
-			target.GetComponent<PlayerInfos>().userNameLabel.gameObject.SetActive(true); 
-			target.GetComponent<PlayerInfos>().messageBubble.SetActive(true);
-			target.GetComponent<PlayerInfos>().heart.gameObject.SetActive(false);
-			target.GetComponent<GhostMovement>().isHugging = false;
-			target.GetComponent<GhostMovement>().isWandering = true;
-			isHugging = false;
-			isWandering = true;
-			target = null;
-		}
-		
+        yield return new WaitForSeconds(hoverTime);
+        startedCoroutine = false;
     }
-    private void Move()
+    void GetNewHoverForce()
+    {
+        rb.AddRelativeForce(Random.onUnitSphere * (10));
+    }
+
+    public float standingTime()
+    {
+        return Random.Range(1, 5);
+    }
+
+    IEnumerator hugging()
+    {
+        // set hugging images and wait...
+        ActivatePlayerGUI();
+        ActivateTargetGUI();
+
+        yield return new WaitForSeconds(3f);
+
+        //then do this aka hide hearts and start walking again
+        if (target != null)
+        {
+            ResetPlayerGUI();
+            ResetTargetGUI();
+        }
+    }
+
+    public void ActivatePlayerGUI()
+    {
+        playerInfos.userNameLabel.gameObject.SetActive(false);
+        playerInfos.messageBubble.SetActive(false);
+        playerInfos.heart.gameObject.SetActive(true);
+    }
+
+    public void ResetPlayerGUI()
+    {
+        playerInfos.userNameLabel.gameObject.SetActive(true);
+        playerInfos.messageBubble.SetActive(true);
+        playerInfos.heart.gameObject.SetActive(false);
+        isHugging = false;
+        isWandering = true;
+        startedHugging = false;
+        isDone = true;
+        Debug.Log("Done Hugging");
+    }
+
+    // Give target and start the coroutines in Update
+    public void SetStartVariables(GameObject tempTarget)
+    {
+        target = tempTarget.transform;
+        isWandering = false;
+
+        target.GetComponent<GhostMovement>().isHugging = true;
+        target.GetComponent<GhostMovement>().isWandering = false;
+        Debug.Log("Setting everything to false and start the hug process");
+    }
+
+    public void ActivateTargetGUI()
+    {
+        target.GetComponent<PlayerInfos>().userNameLabel.gameObject.SetActive(false);
+        target.GetComponent<PlayerInfos>().messageBubble.SetActive(false);
+        target.GetComponent<PlayerInfos>().heart.gameObject.SetActive(true);
+        target.GetComponent<GhostMovement>().isHugging = true;
+        target.GetComponent<GhostMovement>().isWandering = false;
+    }
+
+    // start walking again
+    public void ResetTargetGUI()
+    {
+        target.GetComponent<GhostMovement>().isHugging = false;
+        target.GetComponent<GhostMovement>().isWandering = true;
+        target.GetComponent<PlayerInfos>().userNameLabel.gameObject.SetActive(true);
+        target.GetComponent<PlayerInfos>().messageBubble.SetActive(true);
+        target.GetComponent<PlayerInfos>().heart.gameObject.SetActive(false);
+        target = null;
+    }
+
+    public void Move()
     {
         {
-			// Get the delta position  
-			Vector3 dir = target.position - rb.position;
-			// Get the velocity required to reach the target in the next frame
-			dir /= Time.fixedDeltaTime;
-			// Clamp that to the max speed
-			dir = Vector3.ClampMagnitude(dir, speed);
-			// Apply that to the rigidbody
-			rb.velocity = dir;
-		}
+            // Get the delta position  
+            Vector3 dir = target.position - rb.position;
+            // Get the velocity required to reach the target in the next frame
+            dir /= Time.fixedDeltaTime;
+            // Clamp that to the max speed
+            dir = Vector3.ClampMagnitude(dir, speed);
+            // Apply that to the rigidbody
+            rb.velocity = dir;
+        }
     }
 
 
-	// Könnte man besser machen z.B. mit rb.MoveRotation weil Physics
-	void Rotate()
+    // K?nnte man besser machen z.B. mit rb.MoveRotation weil Physics
+    void Rotate()
     {
-		// Rotation Stuff | get rotation direction | update vector | Rotate 
-		var targetRot = target.position - transform.position;
-		float singleStep = speed * Time.fixedDeltaTime;
+        // Rotation Stuff | get rotation direction | update vector | Rotate 
+        var targetRot = target.position - transform.position;
+        float singleStep = speed * Time.fixedDeltaTime;
 
-		Vector3 newDir = Vector3.RotateTowards(rb.velocity, targetRot, singleStep, 0f);
+        Vector3 newDir = Vector3.RotateTowards(rb.velocity, targetRot, singleStep, 0f);
 
-		// only rotate on y-axis
-		newDir.y = 0;
-		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(newDir), 4f * Time.deltaTime);
-	}
+        // only rotate on y-axis
+        newDir.y = 0;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(newDir), 4f * Time.deltaTime);
+    }
 
     private void Reset()
     {
-		// stop when close to target 
-		rb.velocity = Vector3.zero;
-		// reset roation 
-		rb.rotation = Quaternion.Slerp(transform.rotation, startingDir, 8f * Time.deltaTime);
-	}
+
+        // stop when close to target 
+        rb.velocity = Vector3.zero;
+        // reset roation 
+        rb.rotation = Quaternion.Slerp(transform.rotation, startingDir, 8f * Time.deltaTime);
+    }
 }
