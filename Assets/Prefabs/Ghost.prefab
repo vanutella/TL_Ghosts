@@ -276,8 +276,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: UserName
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2f38a429bfa4e1f4993e81c40a56178b, type: 2}
-  m_sharedMaterial: {fileID: -2596573408509049614, guid: 2f38a429bfa4e1f4993e81c40a56178b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c456ff7419c54954aa853c4ab6d511b6, type: 2}
+  m_sharedMaterial: {fileID: -7184531430774228191, guid: c456ff7419c54954aa853c4ab6d511b6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -446,7 +446,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953086176}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children:
@@ -455,7 +455,7 @@ RectTransform:
   - {fileID: 2029013815}
   m_Father: {fileID: 5129597859739010259}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.719}
@@ -708,6 +708,7 @@ GameObject:
   - component: {fileID: 5129597859739010258}
   - component: {fileID: 5129597859739010253}
   - component: {fileID: 5129597859739010252}
+  - component: {fileID: 1489273287864779688}
   - component: {fileID: 1900427538}
   - component: {fileID: 6517916057854215072}
   m_Layer: 0
@@ -770,7 +771,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5129597859739010255}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 285a93d3972ae2746ba1abf230e9462f, type: 3}
   m_Name: 
@@ -782,6 +783,27 @@ MonoBehaviour:
   isHugging: 0
   isWaiting: 0
   startedCoroutine: 0
+  isDone: 0
+  startedHugging: 0
+--- !u!114 &1489273287864779688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129597859739010255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1cb4407df757ff4f86e8c6948e78ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWandering: 0
+  isTarget: 0
+  isHugging: 0
+  startedHugging: 0
+  isDone: 0
+  playerRadius: 0
+  targetObject: {fileID: 0}
 --- !u!114 &1900427538
 MonoBehaviour:
   m_ObjectHideFlags: 0

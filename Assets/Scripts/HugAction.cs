@@ -21,7 +21,7 @@ public class HugAction : Action
     public override void Start()
     {
         base.Start();
-        senderObj.GetComponent<GhostMovement>().SetStartVariables(targetObj.gameObject);
+       // senderObj.GetComponent<GhostState>().SetStartVariables(targetObj.gameObject);
     }
     public override void Update()
     {
@@ -32,10 +32,10 @@ public class HugAction : Action
     public override bool IsFinished()
     {
         // Do Stuff and Set State back to wandering/default
-        if (senderObj.GetComponent<GhostMovement>().isDone == true)
+        if (senderObj.GetComponent<GhostState>().isDone == true)
         {
             Debug.Log("Is Done with Hugging");
-
+            senderObj.GetComponent<GhostState>().isDone = false;
             return true;
         }
         else

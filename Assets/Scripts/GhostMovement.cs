@@ -13,28 +13,30 @@ public class GhostMovement : MonoBehaviour
     private Rigidbody rb;
     public float speed;
 
-    private Vector3 eulerAngleVelocity;
+   // private Vector3 eulerAngleVelocity;
     private Quaternion startingDir;
 
     public bool isWandering, isHugging = false, isWaiting;
+    public bool startedCoroutine = false; // for the hover coroutine in fixedUpdate
     public bool isDone = false, startedHugging = false;
     void Awake()
     {
         playerInfos = GetComponent<PlayerInfos>();
 
+        // Set Movement Variables 
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.maxAngularVelocity = 60f; //set it to something pretty high so it can actually follow properly!
+     //   eulerAngleVelocity = new Vector3(0, 100, 0);
 
-        eulerAngleVelocity = new Vector3(0, 100, 0);
-
-        startingDir = transform.rotation;
+        startingDir = transform.rotation; // Save rotation 
 
         isWandering = true;
     }
 
     private void Update() // Habe ich ein Target, bewege User dorthin und starte hugging (hug bool set in fixedUpdate)
     {
+
         if (target != null) // placeholder if statement, replace with boolean for state machines
         {
             // IF in Follow-Mode, find Target, calculate dist, do  more logic stuff 
@@ -54,7 +56,7 @@ public class GhostMovement : MonoBehaviour
 
     }
 
-    void FixedUpdate() // Habe is KEIN Target, wandere umher. 
+    void FixedUpdate() // Habe ich KEIN Target, wandere umher. 
                        // Habe ich ein target, dann Stoppe es und bewege darauf zu.
                        // Starte dann Hugging Process
     {
@@ -98,7 +100,8 @@ public class GhostMovement : MonoBehaviour
 
     }
 
-    public bool startedCoroutine = false;
+
+    
     private IEnumerator hovering(float hoverTime)
     {
         yield return new WaitForSeconds(hoverTime);

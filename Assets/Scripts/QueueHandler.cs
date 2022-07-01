@@ -19,9 +19,10 @@ public class QueueHandler : MonoBehaviour
         
         if (currentAction == null)
         {
-            Debug.Log(currentAction + " no action found. Enqueueing new action");
+            
             if(actionQueue.Count > 0)
             {
+                Debug.Log(currentAction + " no action found. Enqueueing new action");
                 currentAction = actionQueue.Dequeue();
                 currentAction.Start();
             }
