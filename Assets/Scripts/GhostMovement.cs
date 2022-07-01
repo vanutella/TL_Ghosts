@@ -75,7 +75,7 @@ public class GhostMovement : MonoBehaviour
         // is a target from someone else 
         else if (target == null && isHugging)
         {
-            Reset();
+            ResetGhost();
         }
 
         // has a target that it is moving towards
@@ -91,7 +91,7 @@ public class GhostMovement : MonoBehaviour
             }
             else if (dist <= playerRadius)
             {
-                Reset();
+                ResetGhost();
                 isHugging = true; // start hugging in update
             }
 
@@ -198,7 +198,7 @@ public class GhostMovement : MonoBehaviour
     }
 
 
-    // K?nnte man besser machen z.B. mit rb.MoveRotation weil Physics
+    // Koennte man besser machen z.B. mit rb.MoveRotation weil Physics
     void Rotate()
     {
         // Rotation Stuff | get rotation direction | update vector | Rotate 
@@ -212,7 +212,7 @@ public class GhostMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(newDir), 4f * Time.deltaTime);
     }
 
-    private void Reset()
+    private void ResetGhost()
     {
 
         // stop when close to target 

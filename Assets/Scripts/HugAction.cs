@@ -21,7 +21,12 @@ public class HugAction : Action
     public override void Start()
     {
         base.Start();
-       // senderObj.GetComponent<GhostState>().SetStartVariables(targetObj.gameObject);
+        // Check if there is already an action running
+        if (senderObj.GetComponent<GhostState>().isWandering && targetObj.GetComponent<GhostState>().isWandering)
+        {
+            senderObj.GetComponent<GhostState>().SetStartVariables(targetObj.gameObject);
+        }
+
     }
     public override void Update()
     {
