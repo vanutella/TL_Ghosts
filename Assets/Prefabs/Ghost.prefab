@@ -707,7 +707,6 @@ GameObject:
   - component: {fileID: 5129597859739010259}
   - component: {fileID: 5129597859739010258}
   - component: {fileID: 5129597859739010253}
-  - component: {fileID: 5129597859739010252}
   - component: {fileID: 1489273287864779688}
   - component: {fileID: 1900427538}
   - component: {fileID: 6517916057854215072}
@@ -764,27 +763,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &5129597859739010252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5129597859739010255}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285a93d3972ae2746ba1abf230e9462f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  playerRadius: 1
-  speed: 1
-  isWandering: 0
-  isHugging: 0
-  isWaiting: 0
-  startedCoroutine: 0
-  isDone: 0
-  startedHugging: 0
 --- !u!114 &1489273287864779688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +780,8 @@ MonoBehaviour:
   isHugging: 0
   startedHugging: 0
   isDone: 0
-  playerRadius: 0
+  playerRadius: 2
+  dist: 0
   targetObject: {fileID: 0}
 --- !u!114 &1900427538
 MonoBehaviour:

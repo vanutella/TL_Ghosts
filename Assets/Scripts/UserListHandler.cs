@@ -140,7 +140,7 @@ public class UserListHandler : MonoBehaviour
         }
 
         // Found Target -> Stop Target, Set Target, (Start Coroutine?)
-        else if (targetItem != null)
+        else if (targetItem != null && targetItem.GetComponent<GhostState>().isTarget == false)
         {
            
             senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));

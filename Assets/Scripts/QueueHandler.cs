@@ -22,7 +22,7 @@ public class QueueHandler : MonoBehaviour
             
             if(actionQueue.Count > 0)
             {
-                Debug.Log(currentAction + " no action found. Enqueueing new action");
+                Debug.Log(currentAction + "At least 1 action found. Enqueueing new action");
                 currentAction = actionQueue.Dequeue();
                 currentAction.Start();
             }

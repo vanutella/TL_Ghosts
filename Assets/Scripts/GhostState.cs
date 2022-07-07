@@ -14,7 +14,7 @@ public class GhostState : MonoBehaviour
     public bool isWandering; // IDLE
     public bool isTarget; // Hugging Mode but IS target
     public bool isHugging; // Hugging and Moving to target
-    public bool startedHugging = false, isDone = false;
+    public bool startedHugging = false, isDone = true;
 
     private bool startedCoroutine = false;
     [Header("Interaction Variables")]
@@ -40,16 +40,17 @@ public class GhostState : MonoBehaviour
     {
         if (isHugging && targetObject)
         {
-            if (targetObject != null)
-            {
+            Debug.Log("Found a target and started hugging");
+           
                 targetObject.GetComponent<GhostState>().isTarget = true; // block from getting targeted again
                 targetObject.GetComponent<GhostState>().isWandering = false; // stop moving
-            }
-            if (startedHugging && isDone)
-            {
-                StartCoroutine(Hugging(4f)); // Start hugging process just once 
-                isDone = false; // look into this boolean logic... in Bezug auf HugAction IsFinished
-            }
+            
+            //if (!startedHugging && isDone)
+         //   {
+             //   Debug.Log("Got to start hugging");
+               // StartCoroutine(Hugging(4f)); // Start hugging process just once 
+          //      startedHugging = false; // look into this boolean logic... in Bezug auf HugAction IsFinished
+          //  }
         }
     }
 
@@ -69,21 +70,24 @@ public class GhostState : MonoBehaviour
 
         // When a hug is in process
         // Sender is hugging someone aka has target 
-        // Cannot be targeted (should be) -- this goes to hug command check
+        // Cannot be targeted (should be but need to implement still) -- this goes to hug command check
         if (isHugging)
         {
-            if(dist > playerRadius) // didn't reach target yet, keep moving!
+            dist = Vector3.Distance(rb.transform.position, targetObject.position);
+            if (dist > playerRadius) // didn't reach target yet, keep moving!
             {
                 MoveToTarget();
                 RotateToTarget();
                 targetObject.GetComponent<GhostState>().StopGhost(); // stop target ghost
             }
             // Initiate the hugging process, continue in Update
-            else if(dist <= playerRadius)
+            else if(dist < playerRadius && !startedHugging)
             {
                 StopGhost();
+                targetObject.GetComponent<GhostState>().StopGhost();
                 startedHugging = true;
-                targetObject.GetComponent<GhostState>().startedHugging = true; 
+                targetObject.GetComponent<GhostState>().startedHugging = true;
+                StartCoroutine(Hugging(3));
             }
 
         }
@@ -116,12 +120,13 @@ public class GhostState : MonoBehaviour
     ////// TARGET INVOLVED STUFF i.e. hugging ////////
     // ------------------------------------------------------------------------------------------------------ // 
 
-    // Set a Target and start the hugging process
+    // [1] Set a Target and start the hugging process
     public void SetStartVariables(GameObject tempTarget)
     {
         targetObject = tempTarget.transform;
         isWandering = false; // make it not targetable 
         isHugging = true; // start hugging
+        isDone = false;
     }
 
     public void MoveToTarget()
@@ -158,13 +163,16 @@ public class GhostState : MonoBehaviour
 
     IEnumerator Hugging(float hugTime) 
     {
-        // Set Hugging Canvas
-
+        // Set Hugging Canvas and do Stuff ---- ADD IN HUGGING STUFF 
+        Debug.Log("Hug coroutine is running");
+        startedHugging = true;
         yield return new WaitForSeconds(hugTime);
-
-        if (!targetObject)
-        {
-            // CONTINUE HERE ---------- remember to set isDone variable
-        }
+        Debug.Log("Done HUgging");
+        startedHugging = false;
+        targetObject = null;
+        isHugging = false;
+        isDone = true;
+        yield break;
+       
     }
 }
