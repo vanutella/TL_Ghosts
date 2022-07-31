@@ -50,7 +50,7 @@ public class HugAction : Action
         }
         else
         {
-            Debug.Log("Not yet done");
+           // Debug.Log("Not yet done");
             return false;
         }
     }

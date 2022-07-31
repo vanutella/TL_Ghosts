@@ -4,7 +4,8 @@ using UnityEngine;
 using TwitchLib.Client.Models;
 using TwitchLib.Unity;
 using System.Linq;
-
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(UserListHandler))]
 public class TwitchClient : MonoBehaviour
@@ -16,6 +17,8 @@ public class TwitchClient : MonoBehaviour
     private UserListHandler listHandler;
 
     public string[] AllCommands;
+   // public Texture myTexture;
+   // public RawImage myImage;
     public enum CommandName
     {
         hug,
@@ -53,6 +56,12 @@ public class TwitchClient : MonoBehaviour
         // Check if user is already spawned as Character
         listHandler.CheckUserList(e.ChatMessage.Username, int.Parse(e.ChatMessage.UserId), UserColor);
 
+        if (e.ChatMessage.EmoteSet.Emotes.Count > 0)
+        {
+            Debug.Log(e.ChatMessage.EmoteSet.Emotes[0].Name);
+          //  StartCoroutine(GetTexture(e.ChatMessage.EmoteSet.Emotes[0].ImageUrl));
+
+        }
         
 
 
@@ -67,8 +76,22 @@ public class TwitchClient : MonoBehaviour
         }
     }
 
+    // Whe there is an emote, get Image
+    //IEnumerator GetTexture(string emoteURL)
+    //{
+    //    UnityWebRequest www = UnityWebRequestTexture.GetTexture(emoteURL);
+    //    yield return www.SendWebRequest();
 
-
+    //    if (www.result != UnityWebRequest.Result.Success)
+    //    {
+    //        Debug.Log(www.error);
+    //    }
+    //    else
+    //    {
+    //        myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            
+    //    }
+    //}
 
     Color GetUserColor(TwitchLib.Client.Events.OnMessageReceivedArgs e)
     {
@@ -133,9 +156,9 @@ public class TwitchClient : MonoBehaviour
                         }
                     }
                 }
-                if(CommandName == "hug")
+                if(CommandName == "hype")
                 {
-
+                    // Do Hype Stuff for this Player User 
                 }
 
                 return; 
@@ -149,6 +172,8 @@ public class TwitchClient : MonoBehaviour
         //{
         //    OnButtonPress();
         //}
+
+        
     }
 
     public void OnButtonPress()

@@ -40,17 +40,8 @@ public class GhostState : MonoBehaviour
     {
         if (isHugging && targetObject)
         {
-            Debug.Log("Found a target and started hugging");
-           
                 targetObject.GetComponent<GhostState>().isTarget = true; // block from getting targeted again
                 targetObject.GetComponent<GhostState>().isWandering = false; // stop moving
-            
-            //if (!startedHugging && isDone)
-         //   {
-             //   Debug.Log("Got to start hugging");
-               // StartCoroutine(Hugging(4f)); // Start hugging process just once 
-          //      startedHugging = false; // look into this boolean logic... in Bezug auf HugAction IsFinished
-          //  }
         }
     }
 
@@ -160,7 +151,6 @@ public class GhostState : MonoBehaviour
 
     public void StopGhost()
     {
-        Debug.Log("The reset Rotation stored is " + startingDir);
         rb.velocity = Vector3.zero; // stop when close to target 
         rb.rotation = Quaternion.Slerp(transform.rotation, startingDir, 8f * Time.deltaTime); // reset roation 
         isWandering = false;
@@ -171,10 +161,8 @@ public class GhostState : MonoBehaviour
         // Set Hugging Canvas and do Stuff ---- ADD IN HUGGING STUFF 
         targetObject.GetComponent<PlayerInfos>().ShowHuggingUI();
         this.GetComponent<PlayerInfos>().ShowHuggingUI();
-        Debug.Log("Hug coroutine is running");
         startedHugging = true;
         yield return new WaitForSeconds(hugTime);
-        Debug.Log("Done HUgging");
         targetObject.GetComponent<PlayerInfos>().HideHuggingUI();
         this.GetComponent<PlayerInfos>().HideHuggingUI();
         startedHugging = false;

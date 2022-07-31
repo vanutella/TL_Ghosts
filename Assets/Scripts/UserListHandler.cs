@@ -113,7 +113,7 @@ public class UserListHandler : MonoBehaviour
         {
          //   Debug.Log("Already got a User with this name in the scene");
             // Set time for last message of playerItem
-
+            playerItem.GetComponent<PlayerInfos>().ResetTimer();
         }
     }
 
@@ -156,6 +156,13 @@ public class UserListHandler : MonoBehaviour
         {
           //  Debug.Log("Found User");
             senderItem.gameObject.GetComponent<PlayerInfos>().message = message.Message;
+            senderItem.gameObject.GetComponent<PlayerInfos>().messageTimer = 0f;
         }
+    }
+
+    public void DeletePlayer(string playername)
+    {
+        GameObject playerToDelete = SpawnedChars.Find(x => x.name == playername);
+        SpawnedChars.Remove(playerToDelete);
     }
 }
