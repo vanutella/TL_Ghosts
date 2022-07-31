@@ -671,10 +671,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3846018093981099296, guid: 59aa35643bd59f341a929d1b3f736833, type: 3}
-  - {fileID: -6478536213147159724, guid: 59aa35643bd59f341a929d1b3f736833, type: 3}
-  - {fileID: -6629797300637803691, guid: 59aa35643bd59f341a929d1b3f736833, type: 3}
-  - {fileID: -6922793697723135513, guid: 59aa35643bd59f341a929d1b3f736833, type: 3}
+  - {fileID: 2100000, guid: f69b353197fe3aa45bde439310d4b503, type: 2}
+  - {fileID: 2100000, guid: 7bdc9b91998375c4786acb9ffdc49def, type: 2}
+  - {fileID: 2100000, guid: f69b353197fe3aa45bde439310d4b503, type: 2}
+  - {fileID: 2100000, guid: 2c85f039e08300e4dab836e6e6801d46, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -780,7 +780,7 @@ MonoBehaviour:
   isHugging: 0
   startedHugging: 0
   isDone: 0
-  playerRadius: 2
+  playerRadius: 0.8
   dist: 0
   targetObject: {fileID: 0}
 --- !u!114 &1900427538

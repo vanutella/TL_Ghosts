@@ -56,5 +56,19 @@ public class PlayerInfos : MonoBehaviour
         messageBubble.SetActive(false);
 
     }
+
+    public void ShowHuggingUI()
+    {
+        Debug.Log("Should Show " + username + "'s heart now");
+        messageBubble.SetActive(false);
+        heart.gameObject.SetActive(true);
+    }
+
+    public void HideHuggingUI()
+    {
+        Debug.Log("Should Hide " + username + "'s hugging heart now");
+        messageBubble.SetActive(true);
+        heart.gameObject.SetActive(false);
+    }
     
 }

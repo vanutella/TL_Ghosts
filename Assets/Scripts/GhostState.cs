@@ -81,13 +81,17 @@ public class GhostState : MonoBehaviour
                 targetObject.GetComponent<GhostState>().StopGhost(); // stop target ghost
             }
             // Initiate the hugging process, continue in Update
-            else if(dist < playerRadius && !startedHugging)
+            else if(dist < playerRadius)
             {
-                StopGhost();
+                this.StopGhost();
                 targetObject.GetComponent<GhostState>().StopGhost();
-                startedHugging = true;
-                targetObject.GetComponent<GhostState>().startedHugging = true;
-                StartCoroutine(Hugging(3));
+                if (!startedHugging)
+                {
+                    
+                    startedHugging = true;
+                    targetObject.GetComponent<GhostState>().startedHugging = true;
+                    StartCoroutine(Hugging(3));
+                }
             }
 
         }
@@ -102,7 +106,7 @@ public class GhostState : MonoBehaviour
 
     private void GetNewHoverForce()
     {
-        rb.AddRelativeForce(Random.onUnitSphere * 5);
+        rb.AddRelativeForce(Random.onUnitSphere * (Random.Range(2, 6)));
     }
 
     private float standingTime()
@@ -156,18 +160,23 @@ public class GhostState : MonoBehaviour
 
     public void StopGhost()
     {
+        Debug.Log("The reset Rotation stored is " + startingDir);
         rb.velocity = Vector3.zero; // stop when close to target 
         rb.rotation = Quaternion.Slerp(transform.rotation, startingDir, 8f * Time.deltaTime); // reset roation 
-        
+        isWandering = false;
     }
 
     IEnumerator Hugging(float hugTime) 
     {
         // Set Hugging Canvas and do Stuff ---- ADD IN HUGGING STUFF 
+        targetObject.GetComponent<PlayerInfos>().ShowHuggingUI();
+        this.GetComponent<PlayerInfos>().ShowHuggingUI();
         Debug.Log("Hug coroutine is running");
         startedHugging = true;
         yield return new WaitForSeconds(hugTime);
         Debug.Log("Done HUgging");
+        targetObject.GetComponent<PlayerInfos>().HideHuggingUI();
+        this.GetComponent<PlayerInfos>().HideHuggingUI();
         startedHugging = false;
         targetObject = null;
         isHugging = false;
