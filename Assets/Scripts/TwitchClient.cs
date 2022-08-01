@@ -159,6 +159,7 @@ public class TwitchClient : MonoBehaviour
                 if(CommandName == "hype")
                 {
                     // Do Hype Stuff for this Player User 
+                    listHandler.StartHype(e.ChatMessage.Username);
                 }
 
                 return; 
@@ -187,13 +188,13 @@ public class TwitchClient : MonoBehaviour
     private void CheckmessageSenderStatus()
     {
         
-        // if(e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster)
-        //{
+         //if(e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster)
+       // {
         //    client.SendMessage(client.JoinedChannels[0], "Die Nachricht kam von Vanu!!!(Broadcaster) vanuHype");
-        //}
-        // if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
-        //{
+       // }
+       //  if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
+       // {
         //    client.SendMessage(client.JoinedChannels[0], "Die Nachricht kam von einem Mod! Macht euren Job Kappa vanuHype");
-        //}
+       // }
     }
 }

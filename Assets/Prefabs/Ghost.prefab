@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 5129597858886063580}
   - component: {fileID: 5129597858886063583}
   - component: {fileID: 5129597858886063582}
+  - component: {fileID: 404519586}
   m_Layer: 0
   m_Name: GhostModel
   m_TagString: Untagged
@@ -697,6 +698,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &404519586
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129597858886063576}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 92129bd6d1eb7c3459e8088ac536c794, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5129597859739010255
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +827,7 @@ MonoBehaviour:
   messageLabel: {fileID: 654905786}
   userNameLabel: {fileID: 1295482069}
   heart: {fileID: 96469895}
+  EmoteIMG: {fileID: 0}
   messageTimer: 0
   showTime: 3
 --- !u!114 &6517916057854215072

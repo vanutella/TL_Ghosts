@@ -123,6 +123,11 @@ public class UserListHandler : MonoBehaviour
         return tempRandom;
     }
 
+    public void StartHype(string username)
+    {
+        GameObject playerObject = SpawnedChars.Find(x => x.name == username);
+        playerObject.GetComponentInChildren<Animator>().Play("Hype");
+    }
 
     // is there even a target available? Or is the name invalid?
     // return a sender AND target object and Enqueue Hug Action 
