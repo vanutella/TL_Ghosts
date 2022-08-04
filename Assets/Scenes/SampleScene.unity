@@ -6007,6 +6007,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8944619187264996572, guid: c2cb5e8a081a26c4a94df01eb6c4e44c, type: 3}
   m_PrefabInstance: {fileID: 697438192}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &704789258 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1775438880, guid: d257d7b4482295f4198f16700da06427, type: 3}
+  m_PrefabInstance: {fileID: 4457629780510704952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -9378,6 +9383,12 @@ MonoBehaviour:
   SpawnedChars: []
   PlayerPrefabs:
   - {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+  - {fileID: 6670617691814017519, guid: bebe08fa2a12746498ca66463ffa6ab0, type: 3}
+  - {fileID: 384111261275501952, guid: fc997bd27839e3e41b9ab5fd7a444dda, type: 3}
+  - {fileID: 8912699224206306901, guid: d920458a2b9aee14096d1c42c89d70c6, type: 3}
+  - {fileID: 7540754940400112038, guid: 36e0d8e1c11ff744491e2df2f1ae9a2e, type: 3}
+  SpawnPoint: {fileID: 704789258}
+  UsersToIgnore: []
 --- !u!4 &1146294905 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7116149066112638295, guid: aca4c69ba2792044da19860502518138, type: 3}
@@ -14274,6 +14285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446183c6726b0364ab15b527bbcabc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Umgebung: {fileID: 0}
 --- !u!4 &1777351989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4376657132610222105, guid: e133dac167ef59c40b7678ba58107c6a, type: 3}

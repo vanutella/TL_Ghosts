@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadScenes : MonoBehaviour
 {
-    
+    public GameObject Umgebung;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +21,22 @@ public class LoadScenes : MonoBehaviour
             Scene scene = SceneManager.GetActiveScene(); 
             SceneManager.LoadScene(scene.name);
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+
+       else  if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Umgebung.SetActive(!Umgebung.activeSelf);
+        }
+        //else if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(0).name);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(1).name);
+        //}
     }
 }

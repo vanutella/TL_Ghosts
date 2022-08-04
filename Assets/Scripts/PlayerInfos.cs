@@ -73,11 +73,10 @@ public class PlayerInfos : MonoBehaviour
            
     }
 
-    void SetBubbleVisibility()
-    {
-        messageBubble.SetActive(false);
-
-    }
+    //void SetBubbleVisibility()
+    //{
+    //    messageBubble.SetActive(false);
+    //}
 
     public GameObject HeartParticles;
     public GameObject SkullParticles;
@@ -97,6 +96,7 @@ public class PlayerInfos : MonoBehaviour
         heart.gameObject.SetActive(false);
     }
     
+    // Wenn eine neue Nachricht kommt, wird diese Funktion aufgerufen
     public void ResetTimer()
     {
         timeLeft = timeDespawn;

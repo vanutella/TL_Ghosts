@@ -45,41 +45,41 @@ public class TwitchApi : MonoBehaviour
     void Update()
     {
         // ask the Api for Information about my Chatters
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            api.Invoke(
-                api.Undocumented.GetChattersAsync(_client.client.JoinedChannels[0].Channel)
-                , GetChatterListCallback
-                );
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    api.Invoke(
+        //        api.Undocumented.GetChattersAsync(_client.client.JoinedChannels[0].Channel)
+        //        , GetChatterListCallback
+        //        );
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
             
-        }
+        //}
     }
 
 
     // Get List of all Chatters 
-    private void GetChatterListCallback(List<ChatterFormatted> listOfChatters)
-    {
-        // Get count of people in Chat (Viewers)
-        Debug.Log("List of " + listOfChatters.Count + " Viewers: ");
-        // Go through each item in List of Chatters and print their Usernames
-        foreach (var chatterObject in listOfChatters)
-        {
-            // Wenn VIP
-            if(chatterObject.UserType == TwitchLib.Api.Core.Enums.UserType.VIP)
-            {
-                _client.client.SendMessage(_client.client.JoinedChannels[0].Channel, "VIP User " + chatterObject.Username + " ist im Chat!");
-            }
-            // Wenn Moderator
-            else if (chatterObject.UserType == TwitchLib.Api.Core.Enums.UserType.Moderator)
-            {
+    //private void GetChatterListCallback(List<ChatterFormatted> listOfChatters)
+    //{
+    //    // Get count of people in Chat (Viewers)
+    //    Debug.Log("List of " + listOfChatters.Count + " Viewers: ");
+    //    // Go through each item in List of Chatters and print their Usernames
+    //    foreach (var chatterObject in listOfChatters)
+    //    {
+    //        // Wenn VIP
+    //        if(chatterObject.UserType == TwitchLib.Api.Core.Enums.UserType.VIP)
+    //        {
+    //            _client.client.SendMessage(_client.client.JoinedChannels[0].Channel, "VIP User " + chatterObject.Username + " ist im Chat!");
+    //        }
+    //        // Wenn Moderator
+    //        else if (chatterObject.UserType == TwitchLib.Api.Core.Enums.UserType.Moderator)
+    //        {
                 
-                _client.client.SendMessage(_client.client.JoinedChannels[0].Channel, "Moderator " + chatterObject.Username + " ist im Chat!");
-            }
-            Debug.Log(chatterObject.Username);
-        }
+    //            _client.client.SendMessage(_client.client.JoinedChannels[0].Channel, "Moderator " + chatterObject.Username + " ist im Chat!");
+    //        }
+    //        Debug.Log(chatterObject.Username);
+    //    }
         
-    }
+    //}
 }

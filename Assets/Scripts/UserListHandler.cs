@@ -30,7 +30,12 @@ public class UserListHandler : MonoBehaviour
         if (IgnoredUsers(name)) { Debug.Log("Found ignored user."); return; }
         // Are there already Users that have chatted? 
         if (ChattedUsers.Count <= 0){
-            GameObject newGO = Instantiate(PlayerPrefabs[randomIndex()], SpawnPoint.position, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            Vector3 spawnCenter = SpawnPoint.position;
+            float radius = 2.5f;
+            Vector3 randomSpawnPoint = spawnCenter + (Vector3)(Random.insideUnitCircle * radius);
+            Debug.Log(randomSpawnPoint);
+            // Spawn and set script
+            GameObject newGO = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             ChattedUsers.Add(new UserClass(name, id, newGO));
             SpawnedChars.Add(newGO);
             newGO.name = name;
@@ -59,7 +64,12 @@ public class UserListHandler : MonoBehaviour
 
         if (userItem == null) // if chatter wasnt found yet, create a new player and add to chatter list
         {
-            GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], SpawnPoint.position /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            Vector3 spawnCenter = SpawnPoint.position;
+            float radius = 2.5f;
+            Vector3 randomSpawnPoint = spawnCenter + (Vector3)(Random.insideUnitCircle * radius);
+            Debug.Log(randomSpawnPoint);
+            // Spawn and set script
+            GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             ChattedUsers.Add(new UserClass(name, id, newGo));
             SpawnedChars.Add(newGo);
             newGo.name = name;
@@ -92,8 +102,13 @@ public class UserListHandler : MonoBehaviour
 
         if (playerItem == null)
         {
+            // random spawn point
+            Vector3 spawnCenter = SpawnPoint.position;
+            float radius = 2.5f;
+            Vector3 randomSpawnPoint = spawnCenter+ (Vector3)(Random.insideUnitCircle * radius);
+            Debug.Log(randomSpawnPoint);
             // Spawn and set script
-            GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], SpawnPoint.position /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
             ChattedUsers.Add(new UserClass(name, id, newGo));
             SpawnedChars.Add(newGo);
             newGo.name = name;
@@ -117,6 +132,7 @@ public class UserListHandler : MonoBehaviour
             playerItem.GetComponent<PlayerInfos>().ResetTimer();
         }
     }
+
 
     private int randomIndex()
     {
