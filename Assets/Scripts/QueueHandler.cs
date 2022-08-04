@@ -7,6 +7,7 @@ public class QueueHandler : MonoBehaviour
     public Queue<Action> actionQueue = new Queue<Action>();
     public Action currentAction = null;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,6 @@ public class QueueHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (currentAction == null)
         {
             
@@ -25,17 +25,30 @@ public class QueueHandler : MonoBehaviour
                 Debug.Log(currentAction + "At least 1 action found. Enqueueing new action");
                 currentAction = actionQueue.Dequeue();
                 currentAction.Start();
+
             }
         }
         else
         {
             Debug.Log("Updating Action ... ");
+            //if (HuggingTime > 0)
+            //{
+            //    HuggingTime -= Time.deltaTime;
+            //    TimeIsUp = false;
+            //}
+            //else if (HuggingTime <= 0)
+            //{
+            //    TimeIsUp = true;
+            //}
             currentAction.Update();
             if (currentAction.IsFinished())
             {
                 Debug.Log("Finished Action");
                 currentAction = null;
+
             }
         }
     }
+
+    
 }

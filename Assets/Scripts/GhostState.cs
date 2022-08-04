@@ -22,6 +22,9 @@ public class GhostState : MonoBehaviour
     public float dist;
     public Transform targetObject;
 
+    private bool timeIsUp;
+    private float HuggingDuration = 25f;
+    private float HuggingTime = 25f;
     void Start()
     {
         playerInfos = GetComponent<PlayerInfos>();
@@ -40,8 +43,21 @@ public class GhostState : MonoBehaviour
     {
         if (isHugging && targetObject)
         {
-                targetObject.GetComponent<GhostState>().isTarget = true; // block from getting targeted again
-                targetObject.GetComponent<GhostState>().isWandering = false; // stop moving
+            if (HuggingTime > 0) { HuggingTime -= Time.deltaTime; timeIsUp = false; }
+            else if(HuggingTime <= 0) { timeIsUp = true; }
+            
+            targetObject.GetComponent<GhostState>().isTarget = true; // block from getting targeted again
+            targetObject.GetComponent<GhostState>().isWandering = false; // stop moving
+            if (timeIsUp)
+            {
+                startedHugging = false;
+                targetObject = null;
+                isHugging = false;
+                isDone = true;
+                StopGhost();
+                HuggingTime = HuggingDuration;
+                Debug.Log("Took to long");
+            }
         }
     }
 
@@ -64,6 +80,7 @@ public class GhostState : MonoBehaviour
         // Cannot be targeted (should be but need to implement still) -- this goes to hug command check
         if (isHugging)
         {
+            
             dist = Vector3.Distance(rb.transform.position, targetObject.position);
             if (dist > playerRadius) // didn't reach target yet, keep moving!
             {
