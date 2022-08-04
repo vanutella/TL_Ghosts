@@ -79,10 +79,14 @@ public class PlayerInfos : MonoBehaviour
 
     }
 
+    public GameObject HeartParticles;
+    public GameObject SkullParticles;
+    public GameObject HypeParticles;
     public void ShowHuggingUI()
     {
        // Debug.Log("Should Show " + username + "'s heart now");
         messageBubble.SetActive(false);
+        Instantiate(HeartParticles, this.transform);
         heart.gameObject.SetActive(true);
     }
 
@@ -99,7 +103,8 @@ public class PlayerInfos : MonoBehaviour
     }
 
     public void DestroyPlayer()
-    {
+    {   Vector3 DeathPos = transform.position;
+        Instantiate(SkullParticles, DeathPos, Quaternion.identity);
         listHandler.DeletePlayer(username);
         Destroy(this.gameObject);
     }

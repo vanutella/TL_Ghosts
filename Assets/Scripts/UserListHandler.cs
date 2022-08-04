@@ -127,7 +127,20 @@ public class UserListHandler : MonoBehaviour
     public void StartHype(string username)
     {
         GameObject playerObject = SpawnedChars.Find(x => x.name == username);
+        GameObject hypeParticles = playerObject.GetComponent<PlayerInfos>().HypeParticles;
+        Instantiate(hypeParticles, playerObject.transform);
         playerObject.GetComponentInChildren<Animator>().Play("Hype");
+    }
+
+    public void StartMassHype()
+    {
+        foreach(GameObject gO in SpawnedChars)
+        {
+            Debug.Log("Starting Mass Hype");
+            GameObject hypeParticles = gO.GetComponent<PlayerInfos>().HypeParticles;
+            Instantiate(hypeParticles, gO.transform);
+            gO.GetComponentInChildren<Animator>().Play("Hype");
+        }
     }
 
     // is there even a target available? Or is the name invalid?
@@ -138,7 +151,7 @@ public class UserListHandler : MonoBehaviour
         string tempSenderName = senderName.ToLower();
         GameObject targetItem = SpawnedChars.Find(x => x.name == tempTargetName);
         GameObject senderItem = SpawnedChars.Find(x => x.name == tempSenderName);
-        Debug.Log(" Found objects: Sender: " + senderItem.name + " Target: " + targetItem.name);
+       // Debug.Log(" Found objects: Sender: " + senderItem.name + " Target: " + targetItem.name);
         // Error Message if no taarget found
         if (targetItem == null)
         {

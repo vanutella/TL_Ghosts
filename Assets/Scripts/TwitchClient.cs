@@ -140,28 +140,39 @@ public class TwitchClient : MonoBehaviour
 
                 string CommandAddOn;
               //  client.SendMessage(client.JoinedChannels[0], "Command detected " + CommandName);
-                
-                if (message.Length > CommandName.Length + 1)
-                {
-                    
-                    // Extract name behind command
-                    CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
-                    if(CommandName == "hug")
-                    {
-                        
-                        if(CommandAddOn != null)
+                if(CommandName == "hug")
+                    {   
+                    if (message.Length > CommandName.Length + 1)
                         {
-                          //  Debug.Log("Found Add On " + CommandAddOn);
-                            listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
-                        }
+                    
+                        // Extract name behind command
+                        CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
+                    
+                        
+                            if(CommandAddOn != null)
+                            {
+                              //  Debug.Log("Found Add On " + CommandAddOn);
+                                listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
+                            }
+                           
+                        } 
+                    else { client.SendMessage(client.JoinedChannels[0], "Ein anderer Nutzer muss erwähnt werden. '!hug username'"); };
                     }
-                }
                 if(CommandName == "hype")
                 {
                     // Do Hype Stuff for this Player User 
                     listHandler.StartHype(e.ChatMessage.Username);
                 }
 
+                if (CommandName == "alle")
+                {
+                    Debug.Log("Found Mass Hype Command");
+                    if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster || e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
+                    {
+                        Debug.Log("Check 2");
+                        listHandler.StartMassHype();
+                    }
+                }
                 return; 
             }
         }

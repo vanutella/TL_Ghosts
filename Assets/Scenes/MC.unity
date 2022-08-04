@@ -10151,6 +10151,7 @@ MonoBehaviour:
   AllCommands:
   - hug
   - hype
+  - alle
 --- !u!114 &309834847
 MonoBehaviour:
   m_ObjectHideFlags: 0
