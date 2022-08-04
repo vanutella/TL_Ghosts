@@ -27,6 +27,7 @@ public class UserListHandler : MonoBehaviour
 
     public void CheckUserList(string name, int id, Color color)
     {
+        if (IgnoredUsers(name)) { Debug.Log("Found ignored user."); return; }
         // Are there already Users that have chatted? 
         if (ChattedUsers.Count <= 0){
             GameObject newGO = Instantiate(PlayerPrefabs[randomIndex()], SpawnPoint.position, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
@@ -169,5 +170,15 @@ public class UserListHandler : MonoBehaviour
     {
         GameObject playerToDelete = SpawnedChars.Find(x => x.name == playername);
         SpawnedChars.Remove(playerToDelete);
+    }
+
+    public string[] UsersToIgnore;
+    public bool IgnoredUsers(string username)
+    {
+        foreach (string user in UsersToIgnore)
+        {
+            if (username.Equals(user)) {  return true; }
+        }
+        return false;
     }
 }

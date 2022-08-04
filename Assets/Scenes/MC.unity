@@ -10134,6 +10134,8 @@ MonoBehaviour:
   PlayerPrefabs:
   - {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
   SpawnPoint: {fileID: 1775438880}
+  UsersToIgnore:
+  - streamelements
 --- !u!114 &309834846
 MonoBehaviour:
   m_ObjectHideFlags: 0
