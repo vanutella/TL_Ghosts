@@ -99,7 +99,7 @@ public class UserListHandler : MonoBehaviour
     {
         // Query 
         GameObject playerItem = SpawnedChars.Find(x => x.name == name);
-
+        Debug.Log(SpawnedChars.Count);
         if (playerItem == null)
         {
             // random spawn point
@@ -171,7 +171,7 @@ public class UserListHandler : MonoBehaviour
         // Error Message if no taarget found
         if (targetItem == null)
         {
-            _client.client.SendMessage(_client.client.JoinedChannels[0], "No Player found. Use '!hug username'");
+          //  _client.client.SendMessage(_client.client.JoinedChannels[0], "No Player found. Use '!hug username'");
         }
 
         // Found Target -> Stop Target, Set Target, (Start Coroutine?)
@@ -182,6 +182,24 @@ public class UserListHandler : MonoBehaviour
            // senderItem.gameObject.GetComponent<GhostMovement>().SetStartVariables(targetItem);
         }
         
+    }
+
+    public void LookingForRandomTarget(string senderName)
+    {
+        string tempSenderName = senderName.ToLower();
+        GameObject senderItem = SpawnedChars.Find(x => x.name == tempSenderName);
+        int randomTargetIndex = Random.Range(0, SpawnedChars.Count-1);
+        if (SpawnedChars[randomTargetIndex].gameObject.name != tempSenderName)
+        {
+            GameObject targetItem = SpawnedChars[randomTargetIndex];
+            senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
+        }
+        else 
+        {
+            GameObject targetItem = SpawnedChars[SpawnedChars.Count-1].gameObject;
+
+            senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
+        }
     }
 
     public void ShowMessage(ChatMessage message)

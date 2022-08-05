@@ -18,7 +18,7 @@ public class GhostState : MonoBehaviour
 
     private bool startedCoroutine = false;
     [Header("Interaction Variables")]
-    public float playerRadius;
+    private float playerRadius = 0.9f;
     public float dist;
     public Transform targetObject;
 

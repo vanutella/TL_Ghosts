@@ -3849,6 +3849,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 654905784, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_Name
+      value: Message_Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868075704, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
+      propertyPath: m_Name
+      value: MessageBubble_Image
+      objectReference: {fileID: 0}
     - target: {fileID: 5129597859739010255, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: m_Name
       value: Ghost
@@ -3863,11 +3871,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5129597859739010259, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.87
+      value: -1.75
       objectReference: {fileID: 0}
     - target: {fileID: 5129597859739010259, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.33
+      value: 1.67
       objectReference: {fileID: 0}
     - target: {fileID: 5129597859739010259, guid: 55eb216cb7d509b469fe63ac475544e0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10171,7 +10179,7 @@ MonoBehaviour:
   AllCommands:
   - hug
   - hype
-  - alle
+  - massevent
 --- !u!114 &309834847
 MonoBehaviour:
   m_ObjectHideFlags: 0

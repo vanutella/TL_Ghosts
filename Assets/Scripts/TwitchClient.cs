@@ -17,8 +17,8 @@ public class TwitchClient : MonoBehaviour
     private UserListHandler listHandler;
 
     public string[] AllCommands;
-   // public Texture myTexture;
-   // public RawImage myImage;
+    // public Texture myTexture;
+    // public RawImage myImage;
     public enum CommandName
     {
         hug,
@@ -56,22 +56,23 @@ public class TwitchClient : MonoBehaviour
         // Check if user is already spawned as Character
         listHandler.CheckUserList(e.ChatMessage.Username, int.Parse(e.ChatMessage.UserId), UserColor);
 
-        if (e.ChatMessage.EmoteSet.Emotes.Count > 0)
-        {
-            Debug.Log(e.ChatMessage.EmoteSet.Emotes[0].Name);
-          //  StartCoroutine(GetTexture(e.ChatMessage.EmoteSet.Emotes[0].ImageUrl));
+        //if (e.ChatMessage.EmoteSet.Emotes.Count > 0)
+        //{
+        //    Debug.Log(e.ChatMessage.EmoteSet.Emotes[0].Name);
+        //  //  StartCoroutine(GetTexture(e.ChatMessage.EmoteSet.Emotes[0].ImageUrl));
 
-        }
-        
+        //}
+
 
 
         // Check Commands
-        if (StartsWithCommand(e.ChatMessage.Message)){
+        if (StartsWithCommand(e.ChatMessage.Message))
+        {
             CheckCommand(AllCommands, e);
         }
         else
         {
-        //    Debug.Log("Should Display Message");
+            //    Debug.Log("Should Display Message");
             listHandler.ShowMessage(e.ChatMessage);
         }
     }
@@ -89,7 +90,7 @@ public class TwitchClient : MonoBehaviour
     //    else
     //    {
     //        myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            
+
     //    }
     //}
 
@@ -112,7 +113,7 @@ public class TwitchClient : MonoBehaviour
                            ));
             return tempC;
         }
-       
+
     }
 
     string randomColor()
@@ -120,9 +121,10 @@ public class TwitchClient : MonoBehaviour
         return string.Concat(Enumerable.Range(0, 6));
     }
 
-    private bool StartsWithCommand(string message) 
+    private bool StartsWithCommand(string message)
     {
-        if (message.StartsWith("!")){ 
+        if (message.StartsWith("!"))
+        {
             return true;
         }
         else return false;
@@ -132,39 +134,45 @@ public class TwitchClient : MonoBehaviour
     void CheckCommand(string[] commands, TwitchLib.Client.Events.OnMessageReceivedArgs e)
     {
         string message = e.ChatMessage.Message;
-        for (int i = 0; i < commands.Length; i++) { 
+        for (int i = 0; i < commands.Length; i++)
+        {
             if (message.Contains(commands[i]))
             {
                 // Extract command name without ! 
                 string CommandName = message.Substring(1, commands[i].Length);
 
                 string CommandAddOn;
-              //  client.SendMessage(client.JoinedChannels[0], "Command detected " + CommandName);
-                if(CommandName == "hug")
-                    {   
+                //  client.SendMessage(client.JoinedChannels[0], "Command detected " + CommandName);
+                if (CommandName == "hug")
+                {
                     if (message.Length > CommandName.Length + 1)
-                        {
-                    
+                    {
+
                         // Extract name behind command
                         CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
-                    
-                        
-                            if(CommandAddOn != null)
+
+
+                        if (CommandAddOn != null)
+                        {
+                            //  Debug.Log("Found Add On " + CommandAddOn);
+                            listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
+                            if (CommandAddOn == "random")
                             {
-                              //  Debug.Log("Found Add On " + CommandAddOn);
-                                listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
+                                Debug.Log("Looking for random target");
+                                listHandler.LookingForRandomTarget(e.ChatMessage.Username);
                             }
-                           
-                        } 
-                    else { client.SendMessage(client.JoinedChannels[0], "Ein anderer Nutzer muss erwähnt werden. '!hug username'"); };
+                        }
+
                     }
-                if(CommandName == "hype")
+                    else { client.SendMessage(client.JoinedChannels[0], "Ein anderer Nutzer muss erwähnt werden. '!hug username'"); };
+                }
+                if (CommandName == "hype")
                 {
                     // Do Hype Stuff for this Player User 
                     listHandler.StartHype(e.ChatMessage.Username);
                 }
 
-                if (CommandName == "alle")
+                if (CommandName == "massevent")
                 {
                     Debug.Log("Found Mass Hype Command");
                     if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster || e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
@@ -173,7 +181,7 @@ public class TwitchClient : MonoBehaviour
                         listHandler.StartMassHype();
                     }
                 }
-                return; 
+                return;
             }
         }
     }
@@ -185,7 +193,7 @@ public class TwitchClient : MonoBehaviour
         //    OnButtonPress();
         //}
 
-        
+
     }
 
     public void OnButtonPress()
@@ -195,17 +203,17 @@ public class TwitchClient : MonoBehaviour
     }
 
 
-   
+
     private void CheckmessageSenderStatus()
     {
-        
-         //if(e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster)
-       // {
+
+        //if(e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster)
+        // {
         //    client.SendMessage(client.JoinedChannels[0], "Die Nachricht kam von Vanu!!!(Broadcaster) vanuHype");
-       // }
-       //  if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
-       // {
+        // }
+        //  if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
+        // {
         //    client.SendMessage(client.JoinedChannels[0], "Die Nachricht kam von einem Mod! Macht euren Job Kappa vanuHype");
-       // }
+        // }
     }
 }
