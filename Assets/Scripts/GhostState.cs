@@ -23,8 +23,8 @@ public class GhostState : MonoBehaviour
     public Transform targetObject;
 
     private bool timeIsUp;
-    private float HuggingDuration = 25f;
-    private float HuggingTime = 25f;
+    private float HuggingDuration = 30f;
+    private float HuggingTime = 30f;
     void Start()
     {
         playerInfos = GetComponent<PlayerInfos>();

@@ -46,6 +46,7 @@ public class HugAction : Action
             targetObj.GetComponent<GhostState>().isWandering = true;
             targetObj.GetComponent<GhostState>().isTarget = false;
             targetObj.GetComponent<GhostState>().startedHugging = false;
+            targetObj.GetComponent<GhostState>().isDone = true;
             return true;
         }
         else

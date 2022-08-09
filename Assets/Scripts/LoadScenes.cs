@@ -7,6 +7,8 @@ public class LoadScenes : MonoBehaviour
 {
     public GameObject Umgebung;
 
+    public bool activeMessageBubble = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,11 @@ public class LoadScenes : MonoBehaviour
        else  if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             Umgebung.SetActive(!Umgebung.activeSelf);
+        }
+
+        else if(Input.GetKeyDown(KeyCode.M))
+        {
+            activeMessageBubble = !activeMessageBubble;
         }
         //else if (Input.GetKeyDown(KeyCode.Alpha1))
         //{

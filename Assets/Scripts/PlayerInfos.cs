@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerInfos : MonoBehaviour
 {
+    LoadScenes sceneHandler;
     UserListHandler listHandler;
     public string username;
     public string id;
@@ -24,9 +25,11 @@ public class PlayerInfos : MonoBehaviour
     public float messageTimer;
     public float showTime = 3f;
 
+    
     // Start is called before the first frame update
     void Start()
     {
+        sceneHandler = GameObject.FindObjectOfType <LoadScenes>();
         listHandler = GameObject.FindObjectOfType<UserListHandler>();
         if(listHandler != null)
         {
@@ -38,7 +41,16 @@ public class PlayerInfos : MonoBehaviour
     void Update()
     {
         userNameLabel.text = username;
-        ShowMessageBubble();
+
+        if (sceneHandler.activeMessageBubble)
+        {
+            ShowMessageBubble();
+        }
+        else
+        {
+            messageBubble.SetActive(false);
+        }
+        
 
         if(timeLeft > 0)
         {
@@ -54,6 +66,7 @@ public class PlayerInfos : MonoBehaviour
         {
             timeLeft = 20f;
         }
+
     }
     public void ShowMessageBubble()
     {
@@ -84,7 +97,7 @@ public class PlayerInfos : MonoBehaviour
     public void ShowHuggingUI()
     {
        // Debug.Log("Should Show " + username + "'s heart now");
-        messageBubble.SetActive(false);
+      //  messageBubble.SetActive(false);
         Instantiate(HeartParticles, this.transform);
         heart.gameObject.SetActive(true);
     }
@@ -92,7 +105,7 @@ public class PlayerInfos : MonoBehaviour
     public void HideHuggingUI()
     {
        // Debug.Log("Should Hide " + username + "'s hugging heart now");
-        messageBubble.SetActive(true);
+       // messageBubble.SetActive(true);
         heart.gameObject.SetActive(false);
     }
     

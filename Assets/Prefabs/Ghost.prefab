@@ -553,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2029013815
 RectTransform:
   m_ObjectHideFlags: 0
@@ -746,7 +746,7 @@ Transform:
   m_GameObject: {fileID: 5129597859739010255}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.67586, y: 0.67586, z: 0.67586}
   m_Children:
   - {fileID: 5129597858886063580}
   - {fileID: 1953086177}
@@ -800,7 +800,6 @@ MonoBehaviour:
   isHugging: 0
   startedHugging: 0
   isDone: 0
-  playerRadius: 0.8
   dist: 0
   targetObject: {fileID: 0}
 --- !u!114 &1900427538

@@ -155,29 +155,54 @@ public class TwitchClient : MonoBehaviour
                         if (CommandAddOn != null)
                         {
                             //  Debug.Log("Found Add On " + CommandAddOn);
-                            listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn);
+
                             if (CommandAddOn == "random")
                             {
                                 Debug.Log("Looking for random target");
                                 listHandler.LookingForRandomTarget(e.ChatMessage.Username);
+                            }
+                            else
+                            {
+                                // beginnt es mit @??? 
+                                if (CommandAddOn.StartsWith("@"))
+                                {
+                                    string CommandAddOnSubstring = CommandAddOn.Substring(1);
+                                    listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOnSubstring);
+                                }
+                                else { listHandler.LookingForHugTarget(e.ChatMessage.Username, CommandAddOn); }
                             }
                         }
 
                     }
                     else { client.SendMessage(client.JoinedChannels[0], "Ein anderer Nutzer muss erwähnt werden. '!hug username'"); };
                 }
-                if (CommandName == "hype")
+                else if (CommandName.Equals("hype"))
                 {
                     // Do Hype Stuff for this Player User 
                     listHandler.StartHype(e.ChatMessage.Username);
                 }
 
-                if (CommandName == "massevent")
+                else if (CommandName.Equals("color"))
                 {
-                    Debug.Log("Found Mass Hype Command");
+                    if (message.Length > CommandName.Length + 1)
+                    {
+                        CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
+                        if (CommandAddOn.Equals("white"))
+                        {
+
+                        }
+                        else if (CommandAddOn.Equals("blue"))
+                        {
+
+                        }
+                    }
+                }
+                else if (CommandName.Equals("dance"))
+                {
+                    Debug.Log("Found Mass Hype Command akaka dance <3 ");
                     if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster || e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
                     {
-                        Debug.Log("Check 2");
+
                         listHandler.StartMassHype();
                     }
                 }

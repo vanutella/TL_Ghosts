@@ -171,7 +171,7 @@ public class UserListHandler : MonoBehaviour
         // Error Message if no taarget found
         if (targetItem == null)
         {
-          //  _client.client.SendMessage(_client.client.JoinedChannels[0], "No Player found. Use '!hug username'");
+            _client.client.SendMessage(_client.client.JoinedChannels[0], "No Player found. Use '!hug username'");
         }
 
         // Found Target -> Stop Target, Set Target, (Start Coroutine?)
