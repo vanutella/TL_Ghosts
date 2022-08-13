@@ -3154,6 +3154,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4457629779828549708, guid: d257d7b4482295f4198f16700da06427, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457629779828549708, guid: d257d7b4482295f4198f16700da06427, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457629779828549708, guid: d257d7b4482295f4198f16700da06427, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9983687
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457629779828549708, guid: d257d7b4482295f4198f16700da06427, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.057097487
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457629779828549708, guid: d257d7b4482295f4198f16700da06427, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 6.546
+      objectReference: {fileID: 0}
     - target: {fileID: 4457629779933521461, guid: d257d7b4482295f4198f16700da06427, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -10178,8 +10198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllCommands:
   - hug
-  - hype
   - dance
+  - alle
   - color
 --- !u!114 &309834847
 MonoBehaviour:
@@ -58264,7 +58284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Umgebung: {fileID: 1176719227}
-  activeMessageBubble: 1
+  activeMessageBubble: 0
 --- !u!114 &1948854261
 MonoBehaviour:
   m_ObjectHideFlags: 0

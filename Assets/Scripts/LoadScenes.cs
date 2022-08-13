@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class LoadScenes : MonoBehaviour
 {
     public GameObject Umgebung;
-
-    public bool activeMessageBubble = true;
-
+    
+    public bool activeMessageBubble = false;
+    
     // Start is called before the first frame update
     void Start()
     {

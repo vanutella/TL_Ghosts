@@ -59,6 +59,22 @@ public class GhostState : MonoBehaviour
                 Debug.Log("Took to long");
             }
         }
+        else if (isTarget)
+        {
+            if (HuggingTime > 0) { HuggingTime -= Time.deltaTime; timeIsUp = false; }
+            else if (HuggingTime <= 0) { timeIsUp = true; }
+
+            if (timeIsUp)
+            {
+                startedHugging = false;
+                targetObject = null;
+                isHugging = false;
+                isDone = true;
+                StopGhost();
+                HuggingTime = HuggingDuration;
+                Debug.Log("Took to long");
+            }
+        }
     }
 
     private void FixedUpdate()

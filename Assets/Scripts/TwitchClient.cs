@@ -158,12 +158,11 @@ public class TwitchClient : MonoBehaviour
 
                             if (CommandAddOn == "random")
                             {
-                                Debug.Log("Looking for random target");
                                 listHandler.LookingForRandomTarget(e.ChatMessage.Username);
                             }
                             else
                             {
-                                // beginnt es mit @??? 
+                                // beginnt es mit @? dann entferne es und durchsuche playerlist
                                 if (CommandAddOn.StartsWith("@"))
                                 {
                                     string CommandAddOnSubstring = CommandAddOn.Substring(1);
@@ -176,7 +175,7 @@ public class TwitchClient : MonoBehaviour
                     }
                     else { client.SendMessage(client.JoinedChannels[0], "Ein anderer Nutzer muss erwähnt werden. '!hug username'"); };
                 }
-                else if (CommandName.Equals("hype"))
+                else if (CommandName.Equals("dance"))
                 {
                     // Do Hype Stuff for this Player User 
                     listHandler.StartHype(e.ChatMessage.Username);
@@ -187,23 +186,63 @@ public class TwitchClient : MonoBehaviour
                     if (message.Length > CommandName.Length + 1)
                     {
                         CommandAddOn = e.ChatMessage.Message.Substring(commands[i].Length + 2);
-                        if (CommandAddOn.Equals("white"))
+                        GameObject playerItem = listHandler.FindPlayer(e.ChatMessage.Username);
+                        if (playerItem != null)
                         {
-
-                        }
-                        else if (CommandAddOn.Equals("blue"))
-                        {
-
+                            if (CommandAddOn.Equals("red"))
+                            {
+                                Debug.Log("Change to red..." + playerItem);
+                                Color newColor = new Color(0.86f, 0.26f, 0.26f, 0.8f);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else if (CommandAddOn.Equals("blue"))
+                            {
+                                Debug.Log("Change to red..." + playerItem);
+                                Color newColor = new Color(0.59f, 0.6f, 0.97f, 0.7f);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else if (CommandAddOn.Equals("turquoise"))
+                            {
+                                Debug.Log("Change to red..." + playerItem);
+                                Color newColor = new Color(0.52f, 0.77f, 0.72f, 0.69f);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else if (CommandAddOn.Equals("yellow"))
+                            {
+                                Debug.Log("Change to red..." + playerItem);
+                                Color newColor = new Color(0.94f, 0.75f, 0.31f, 0.74f);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else if (CommandAddOn.Equals("orange"))
+                            {
+                                Debug.Log("Change to red..." + playerItem);
+                                Color newColor = new Color(0.89f, 0.53f, 0.33f, 0.76f);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else if (CommandAddOn.Equals("random"))
+                            {
+                                Debug.Log("doing random color stuff");
+                                Color newColor = Random.ColorHSV(0f, 1f, 0.2f, 0.8f, 0.8f, 1f, 0.6f, 0.85f);
+                                //(float hueMin, float hueMax, float saturationMin, float saturationMax, float valueMin, float valueMax, float alphaMin, float alphaMax);
+                                NewColorMaterial(newColor, playerItem);
+                            }
+                            else
+                            {
+                                client.SendMessage(client.JoinedChannels[0], "/announce Diese Farbe gibbet nicht!!! Versuche es mal mit '!color random' mehr Farben: red, yellow, orange, blue, turquoise");
+                            }
                         }
                     }
+                    else {
+                        client.SendMessage(client.JoinedChannels[0], "Oops error - we found a bug OOOO"); }
                 }
-                else if (CommandName.Equals("dance"))
+                else if (CommandName.Equals("alle"))
                 {
-                    Debug.Log("Found Mass Hype Command akaka dance <3 ");
+                    Debug.Log("Found Mass Hype Command aka dance <3 ");
                     if (e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Broadcaster || e.ChatMessage.UserType == TwitchLib.Client.Enums.UserType.Moderator)
                     {
 
                         listHandler.StartMassHype();
+                        client.SendMessage(client.JoinedChannels[0], "Und jetzt alle zusammen! Dance! PogChamp ");
                     }
                 }
                 return;
@@ -219,6 +258,20 @@ public class TwitchClient : MonoBehaviour
         //}
 
 
+    }
+
+    public void NewColorMaterial(Color _color, GameObject playerObject)
+    {
+        Material generatedMat = new Material(Shader.Find("Standard"));
+        generatedMat.SetFloat("_Mode", 3);
+        generatedMat.SetFloat("_Glossiness", 0f);
+        generatedMat.SetColor("_Color", _color);
+        generatedMat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        generatedMat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        generatedMat.EnableKeyword("_ALPHABLEND_ON");
+        generatedMat.renderQueue = 3000;
+        //   playerItem.GetComponent<MeshRenderer>().material = generatedMat;
+        playerObject.GetComponentInChildren<MeshRenderer>().material = generatedMat;
     }
 
     public void OnButtonPress()

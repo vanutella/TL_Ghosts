@@ -36,6 +36,7 @@ public class UserListHandler : MonoBehaviour
             Debug.Log(randomSpawnPoint);
             // Spawn and set script
             GameObject newGO = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            
             ChattedUsers.Add(new UserClass(name, id, newGO));
             SpawnedChars.Add(newGO);
             newGO.name = name;
@@ -44,7 +45,7 @@ public class UserListHandler : MonoBehaviour
             if (Player_Infos)
             {
                 Player_Infos.charPrefab = newGO; // Set User GameObject
-
+                Player_Infos.selectedChar = newGO;
                 Player_Infos.userNameLabel.color = color;
                 Player_Infos.username = name; // Set User Name
                 Player_Infos.id = id.ToString(); // Set User ID
@@ -70,6 +71,7 @@ public class UserListHandler : MonoBehaviour
             Debug.Log(randomSpawnPoint);
             // Spawn and set script
             GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            
             ChattedUsers.Add(new UserClass(name, id, newGo));
             SpawnedChars.Add(newGo);
             newGo.name = name;
@@ -79,7 +81,7 @@ public class UserListHandler : MonoBehaviour
             {
 
                 Player_Infos.charPrefab = newGo; // Set User GameObject
-                
+                Player_Infos.selectedChar = newGo;
                 Player_Infos.userNameLabel.color = color;
                 Player_Infos.username = name; // Set User Name
                 Player_Infos.id = id.ToString(); // Set User ID
@@ -92,6 +94,15 @@ public class UserListHandler : MonoBehaviour
             // Search Player list here 
             SearchPlayerList(name, id, color);
         }
+    }
+    public GameObject FindPlayer(string Username)
+    {
+        string name = Username.ToLower();
+        GameObject playerItem = SpawnedChars.Find(x => x.name == name);
+        if (playerItem != null) { 
+        return playerItem;
+        }
+        else return null;
     }
 
     
@@ -109,20 +120,23 @@ public class UserListHandler : MonoBehaviour
             Debug.Log(randomSpawnPoint);
             // Spawn and set script
             GameObject newGo = Instantiate(PlayerPrefabs[randomIndex()], randomSpawnPoint /*new Vector3(Random.Range(-5, 6), Random.Range(0, 7), Random.Range(-28, -24))*/, transform.rotation * Quaternion.Euler(0f, 180f, 0f));
+            
             ChattedUsers.Add(new UserClass(name, id, newGo));
             SpawnedChars.Add(newGo);
             newGo.name = name;
             Player_Infos = newGo.GetComponent<PlayerInfos>();
+            
             // do sth when found script on GO
             if (Player_Infos != null)
             {
 
                 Player_Infos.charPrefab = newGo; // Set User GameObject
-
+                Player_Infos.selectedChar = newGo;
                 Player_Infos.userNameLabel.color = color;
                 Player_Infos.username = name; // Set User Name
                 Player_Infos.id = id.ToString(); // Set User ID
                 Player_Infos.messageTimer = 0;
+                
             }
         }
         else
@@ -132,6 +146,7 @@ public class UserListHandler : MonoBehaviour
             playerItem.GetComponent<PlayerInfos>().ResetTimer();
         }
     }
+
 
 
     private int randomIndex()
@@ -181,6 +196,10 @@ public class UserListHandler : MonoBehaviour
             senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
            // senderItem.gameObject.GetComponent<GhostMovement>().SetStartVariables(targetItem);
         }
+        else
+        {
+            _client.client.SendMessage(_client.client.JoinedChannels[0], "Could not hug right now, sorry.");
+        }
         
     }
 
@@ -193,12 +212,16 @@ public class UserListHandler : MonoBehaviour
         {
             GameObject targetItem = SpawnedChars[randomTargetIndex];
             senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
+            string targetName = targetItem.name;
+            _client.client.SendMessage(_client.client.JoinedChannels[0], "Hugging " + targetName);
         }
         else 
         {
             GameObject targetItem = SpawnedChars[SpawnedChars.Count-1].gameObject;
 
             senderItem.gameObject.GetComponent<QueueHandler>().actionQueue.Enqueue(new HugAction(senderItem, targetItem));
+            string targetName = targetItem.name;
+            _client.client.SendMessage(_client.client.JoinedChannels[0], "Hugging " + targetName); 
         }
     }
 
@@ -227,5 +250,24 @@ public class UserListHandler : MonoBehaviour
             if (username.Equals(user)) {  return true; }
         }
         return false;
+    }
+
+    public void ReplacePlayer(GameObject PlayerToReplace)
+    {
+            GameObject playerItem = FindPlayer(PlayerToReplace.gameObject.name);
+            Debug.Log("Found another Prefab. Should Change now");
+            GameObject newGo = Instantiate(PlayerToReplace.GetComponent<PlayerInfos>().selectedChar, playerItem.gameObject.transform.position, playerItem.gameObject.transform.rotation);
+
+            SpawnedChars.Remove(playerItem);
+            newGo.name = PlayerToReplace.name;
+            newGo.GetComponent<PlayerInfos>().selectedChar = newGo;
+            newGo.GetComponent<PlayerInfos>().charPrefab = newGo;
+            newGo.GetComponent<PlayerInfos>().username = PlayerToReplace.name;
+
+            SpawnedChars.Add(newGo);
+            Destroy(PlayerToReplace);
+
+
+        
     }
 }

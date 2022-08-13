@@ -12,8 +12,8 @@ public class PlayerInfos : MonoBehaviour
     public string id;
     public GameObject selectedChar;
     public GameObject charPrefab;
-    public float timeLeft = 300;
-    public float timeDespawn = 300;
+    public float timeLeft = 600;
+    public float timeDespawn = 600;
     public string message;
     public GameObject messageBubble;
     public TMPro.TMP_Text messageLabel;
@@ -25,12 +25,13 @@ public class PlayerInfos : MonoBehaviour
     public float messageTimer;
     public float showTime = 3f;
 
-    
+    private MeshRenderer MeshRen;
     // Start is called before the first frame update
     void Start()
     {
         sceneHandler = GameObject.FindObjectOfType <LoadScenes>();
         listHandler = GameObject.FindObjectOfType<UserListHandler>();
+
         if(listHandler != null)
         {
             Debug.Log("Found List Handler");
@@ -40,6 +41,12 @@ public class PlayerInfos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+        if(charPrefab != selectedChar)
+        {
+            listHandler.ReplacePlayer(this.gameObject);            
+        }
+
         userNameLabel.text = username;
 
         if (sceneHandler.activeMessageBubble)
